@@ -1,5 +1,6 @@
 # DEV
-/build/
+build/
+/.dev/
 
 #
 # Binaries for programs and plugins

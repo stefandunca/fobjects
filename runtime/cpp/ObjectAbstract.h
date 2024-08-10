@@ -3,6 +3,7 @@
 #include "helpers.h"
 
 #include <iostream>
+#include <string>
 
 class ObjectAbstract {
 public:
@@ -10,6 +11,7 @@ public:
         std::cout << "@dd cpp.ObjectAbstract::~ObjectAbstract()" << std::endl;
     };
     virtual void setStringProperty(const char*) = 0;
-    virtual const std::string getStringProperty() = 0;
+    virtual std::string getStringProperty() = 0;
+    // TODO DEV check if I can return a notify function to be used in GO
     virtual void registerForStringPropertyChanges(const PropertyChangedCallback*) = 0;
 };

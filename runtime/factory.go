@@ -12,31 +12,31 @@ type factoryGo struct {
 	FactoryAbstract
 }
 
-func (cigs *factoryGo) deleteFactoryAbstract() {
-	DeleteDirectorFactoryAbstract(cigs.FactoryAbstract)
+func (fg *factoryGo) deleteFactoryAbstract() {
+	DeleteDirectorFactoryAbstract(fg.FactoryAbstract)
 }
 
-func (cigs *factoryGo) IsFactoryGo() {}
+func (fg *factoryGo) IsFactoryGo() {}
 
 type overwrittenMethodsOnFactoryAbstract struct {
-	ci FactoryAbstract
+	fa FactoryAbstract
 }
 
-func (t *overwrittenMethodsOnFactoryAbstract) CreateObject() ObjectAbstract {
+func (om *overwrittenMethodsOnFactoryAbstract) CreateObject() ObjectAbstract {
 	fmt.Println("@dd GO CreateObject")
 	return NewObjectGo()
 }
 
 func NewFactoryGo() Factory {
 	om := &overwrittenMethodsOnFactoryAbstract{}
-	ci := NewDirectorFactoryAbstract(om)
-	om.ci = ci
+	fa := NewDirectorFactoryAbstract(om)
+	om.fa = fa
 
-	cigs := &factoryGo{FactoryAbstract: ci}
-	return cigs
+	fg := &factoryGo{FactoryAbstract: fa}
+	return fg
 }
 
 // Recommended to be removed if runtime.SetFinalizer is in use.
-func DeleteFactoryGo(fbg Factory) {
-	fbg.deleteFactoryAbstract()
+func DeleteFactoryGo(f Factory) {
+	f.deleteFactoryAbstract()
 }

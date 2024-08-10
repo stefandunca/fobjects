@@ -1,0 +1,9 @@
+{
+    "version": 4,
+    "vendor": {
+        "conan": {}
+    },
+    "include": [
+        "/Users/stefan/proj/fobjects/runtime/qmlruntime/build/conan/build/Release/generators/CMakePresets.json"
+    ]
+}

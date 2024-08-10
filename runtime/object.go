@@ -12,11 +12,11 @@ type objectGo struct {
 	ObjectAbstract
 }
 
-func (cigs *objectGo) deleteObjectAbstract() {
-	DeleteDirectorObjectAbstract(cigs.ObjectAbstract)
+func (og *objectGo) deleteObjectAbstract() {
+	DeleteDirectorObjectAbstract(og.ObjectAbstract)
 }
 
-func (cigs *objectGo) IsObjectGo() {}
+func (og *objectGo) IsObjectGo() {}
 
 type overwrittenMethodsOnObjectAbstract struct {
 	ci ObjectAbstract
@@ -25,34 +25,34 @@ type overwrittenMethodsOnObjectAbstract struct {
 	callback       PropertyChangedCallback
 }
 
-func (t *overwrittenMethodsOnObjectAbstract) SetStringProperty(value string) {
-	fmt.Println("@dd GO SetStringProperty", value, t.callback)
-	t.stringProperty = value
-	if t.callback != nil {
-		t.callback.Changed()
+func (om *overwrittenMethodsOnObjectAbstract) SetStringProperty(value string) {
+	fmt.Println("@dd GO SetStringProperty", value, om.callback)
+	om.stringProperty = value
+	if om.callback != nil {
+		om.callback.Changed()
 	}
 }
 
-func (t *overwrittenMethodsOnObjectAbstract) GetStringProperty() string {
-	fmt.Println("@dd GO GetStringProperty", t.stringProperty)
-	return t.stringProperty
+func (om *overwrittenMethodsOnObjectAbstract) GetStringProperty() string {
+	fmt.Println("@dd GO GetStringProperty", om.stringProperty)
+	return om.stringProperty
 }
 
-func (t *overwrittenMethodsOnObjectAbstract) RegisterForStringPropertyChanges(callback PropertyChangedCallback) {
+func (om *overwrittenMethodsOnObjectAbstract) RegisterForStringPropertyChanges(callback PropertyChangedCallback) {
 	fmt.Println("@dd GO RegisterForStringPropertyChange", callback)
-	t.callback = callback
+	om.callback = callback
 }
 
 func NewObjectGo() Object {
 	om := &overwrittenMethodsOnObjectAbstract{}
-	ci := NewDirectorObjectAbstract(om)
-	om.ci = ci
+	oa := NewDirectorObjectAbstract(om)
+	om.ci = oa
 
-	cigs := &objectGo{ObjectAbstract: ci}
-	return cigs
+	og := &objectGo{ObjectAbstract: oa}
+	return og
 }
 
 // Recommended to be removed if runtime.SetFinalizer is in use.
-func DeleteObjectGo(fbg Object) {
-	fbg.deleteObjectAbstract()
+func DeleteObjectGo(o Object) {
+	o.deleteObjectAbstract()
 }
