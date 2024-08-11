@@ -1,5 +1,5 @@
 // Test interface
-#include "runtime/Runtime.h"
+#include "qmlruntime/QmlRuntime.h"
 
 #include <gtest/gtest.h>
 
@@ -28,8 +28,8 @@ TEST(RuntimeTest, TestQmlEngine)
     bool messageReceived = false;
 
     // Start runtime
-    RuntimePtr runtime;
-    runtime = Runtime::init(appArgc, appArgv, [&runtime, &messageReceived](const char* data) {
+    QmlRuntimePtr runtime;
+    runtime = QmlRuntime::init(appArgc, appArgv, [&runtime, &messageReceived](const char* data) {
         auto payload = json::parse(data);
         EXPECT_TRUE(payload.contains("ok"));
         EXPECT_EQ(payload["ok"], true);

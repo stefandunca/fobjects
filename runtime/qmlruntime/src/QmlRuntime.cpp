@@ -1,4 +1,4 @@
-#include "Runtime.h"
+#include "QmlRuntime.h"
 
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
@@ -16,19 +16,19 @@ using json = nlohmann::json;
 
 namespace fs = std::filesystem;
 
-RuntimeWeak Runtime::globalRuntime;
+QmlRuntimeWeak QmlRuntime::globalRuntime;
 
-RuntimePtr Runtime::init(int argc, char** argv, DataReceivedCallback callback)
+QmlRuntimePtr QmlRuntime::init(int argc, char** argv, DataReceivedCallback callback)
 {
     if (globalRuntime.lock()) {
-        throw std::runtime_error("Runtime already initialized");
+        throw std::runtime_error("QmlRuntime already initialized");
     }
-    auto ptr = std::shared_ptr<Runtime>(new Runtime(argc, argv, callback));
+    auto ptr = std::shared_ptr<QmlRuntime>(new QmlRuntime(argc, argv, callback));
     globalRuntime = ptr;
     return ptr;
 }
 
-RuntimePtr Runtime::initWithJson(const char* argsJsonArray, DataReceivedCallback callback)
+QmlRuntimePtr QmlRuntime::initWithJson(const char* argsJsonArray, DataReceivedCallback callback)
 {
     auto json = json::parse(argsJsonArray);
     auto args = json.get<std::vector<std::string>>();
@@ -44,11 +44,11 @@ RuntimePtr Runtime::initWithJson(const char* argsJsonArray, DataReceivedCallback
     return init(argsCount, argv, callback);
 }
 
-RuntimeWeak Runtime::instance() { return globalRuntime; }
+QmlRuntimeWeak QmlRuntime::instance() { return globalRuntime; }
 
-Runtime::~Runtime() { std::cout << "@dd cpp.Runtime::~Runtime" << std::endl; }
+QmlRuntime::~QmlRuntime() { std::cout << "@dd cpp.QmlRuntime::~QmlRuntime" << std::endl; }
 
-int Runtime::run(fs::path mainViewQmlComponent)
+int QmlRuntime::run(fs::path mainViewQmlComponent)
 {
     // Ensure we load QML after the event loop has started
     QTimer::singleShot(0, [this, &mainViewQmlComponent]() {
@@ -61,16 +61,16 @@ int Runtime::run(fs::path mainViewQmlComponent)
     return app->exec();
 }
 
-void Runtime::quit() { app->quit(); }
+void QmlRuntime::quit() { app->quit(); }
 
-void Runtime::sendData(const char* data)
+void QmlRuntime::sendData(const char* data)
 {
     if (callback) {
         callback(data);
     }
 };
 
-Runtime::Runtime(int argc, char** argv, DataReceivedCallback callback)
+QmlRuntime::QmlRuntime(int argc, char** argv, DataReceivedCallback callback)
     : app(std::make_unique<QGuiApplication>(argc, argv))
     , callback(callback)
 {

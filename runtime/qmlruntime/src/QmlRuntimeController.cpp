@@ -1,4 +1,4 @@
-#include "RuntimeController.h"
+#include "QmlRuntimeController.h"
 
 QmlRuntimeController::QmlRuntimeController(QObject *parent)
     : QObject(parent)

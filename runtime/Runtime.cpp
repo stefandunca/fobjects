@@ -12,6 +12,11 @@ Runtime::Runtime(const char* jsonArgs)
     std::cout << "@dd cpp.Runtime::Runtime()" << jsonArgs << std::endl;
 }
 
+Runtime::~Runtime()
+{
+    std::cout << "@dd cpp.Runtime::~Runtime()" << std::endl;
+}
+
 // Identify with an ID the template instance
 template <class T>
 class PropertyChangedForObject : public PropertyChangedCallback {
@@ -40,9 +45,4 @@ int Runtime::run(const FactoryAbstract* factory)
     obj->setStringProperty("Test Content");
     delete obj;
     return 0;
-}
-
-Runtime::~Runtime()
-{
-    std::cout << "@dd cpp.Runtime::~Runtime()" << std::endl;
 }

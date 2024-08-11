@@ -1,7 +1,7 @@
 import QtQuick
 import QtQuick.Controls
 
-import qmlruntime
+import runtime
 
 ApplicationWindow {
     visible: true
@@ -19,7 +19,7 @@ ApplicationWindow {
 
     Component.onCompleted: runtimeController.publishJsonMessage(JSON.stringify(allDonePayload))
 
-    RuntimeController {
+    QmlRuntimeController {
         id: runtimeController
     }
 }

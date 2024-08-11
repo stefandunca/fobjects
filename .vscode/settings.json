@@ -5,6 +5,8 @@
     "C_Cpp.default.compilerPath": "/Users/stefan/tools/Xcode_14.3.1.app",
     "files.associations": {
         "*.out": "log",
-        "functional": "cpp"
+        "functional": "cpp",
+        "memory": "cpp",
+        "stdexcept": "cpp"
     }
 }

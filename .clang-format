@@ -1,0 +1,45 @@
+IndentWidth: 4
+UseTab: Never
+TabWidth: 4
+
+# Keep the opening brace on the same line
+BreakBeforeBraces: Attach
+
+AlignOperands: true
+AlignTrailingComments: true
+
+ColumnLimit: 120
+
+# Space after commas and operators
+SpaceAfterCStyleCast: false
+SpaceAfterTemplateKeyword: true
+SpaceBeforeParens: ControlStatements
+SpaceInEmptyParentheses: false
+SpacesBeforeTrailingComments: 1
+
+# Miscellaneous settings to enforce a cleaner style
+AllowShortFunctionsOnASingleLine: InlineOnly
+AllowShortIfStatementsOnASingleLine: WithoutElse
+AllowShortLoopsOnASingleLine: true
+AlwaysBreakTemplateDeclarations: Yes
+
+# Disable padding inside square brackets and after function names
+SpaceBeforeSquareBrackets: false
+SpaceBeforeCtorInitializerColon: false
+SpaceBeforeInheritanceColon: false
+
+# turn off aligning function declarations
+AlignConsecutiveDeclarations: false
+
+IndentAccessModifiers: false
+AccessModifierOffset: -4
+
+# minimalistic style
+KeepEmptyLinesAtTheStartOfBlocks: false
+
+# Ensure return types are placed on a separate line
+AlwaysBreakAfterReturnType: TopLevel  # Forces breaking return type for top-level functions
+
+# Pointer and reference alignment to stick to the type
+PointerAlignment: Left
+ReferenceAlignment: Left

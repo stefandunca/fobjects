@@ -15,7 +15,7 @@ target_compile_definitions(test_qmlruntime PRIVATE TEST_SOURCE_DIR="${CMAKE_CURR
 target_compile_options(test_qmlruntime PRIVATE -Wall -Wextra)
 
 # Link qmlruntime and Qt libraries
-target_link_libraries(test_qmlruntime PRIVATE qmlruntime)
+target_link_libraries(test_qmlruntime PRIVATE runtime)
 
 # Specify the installation directory
 install(

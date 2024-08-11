@@ -12,3 +12,11 @@ Inspect wig generated code.
 ```sh
 ( TMPDIR=$(pwd)/build/go CGO_CXXFLAGS="-std=c++11" go run --work main.go )
 ```
+
+## Implementation
+
+### App initialize the C++ runtime - go code
+
+### C++ runtime initialize the qml runtime
+
+### C++ runtime registers the Qt foreign objects

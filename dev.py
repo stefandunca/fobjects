@@ -28,8 +28,7 @@ generatorBinary = './build/main'
 sourceFile = 'main.go'
 commandRun = ""
 runtime_dir = './runtime'
-qmlruntime_dir = f"{runtime_dir}/qmlruntime"
-qmlruntime_build_dir = f"{qmlruntime_dir}/build"
+runtime_build_dir = f"{runtime_dir}/build"
 
 
 @click.group(invoke_without_command=True)
@@ -65,19 +64,6 @@ def build(ctx, open_build_folder=False, use_code=False, source=sourceFile, targe
     elif regenerate:
         echo(f'Removing executable "{target}"')
         sh.rm('-f', target, **std_out)
-
-    # build C++ lib if require
-
-    build_type = 'Debug' if ctx.obj['DEBUG'] else 'Release'
-
-    # qt_dir = f"{runtime_dir}/qt"
-    # qt_build_dir = f"{qt_dir}/build"
-    # sh.cmake(
-    #     '-B', qt_build_dir,
-    #     '-S', qt_dir,
-    #     '-G', 'Ninja', f'-DCMAKE_BUILD_TYPE={build_type}', **std_out
-    # )
-    # sh.cmake('--build', qt_build_dir, **std_out)
 
     # optionally open the build folder
 
@@ -117,7 +103,7 @@ def set_library_path(lib_path):
 @click.option('--source', default=sourceFile, help='The source file to run.')
 @click.argument('extra_args', nargs=-1)
 def run(source, extra_args):
-    set_library_path(qmlruntime_build_dir)
+    set_library_path(runtime_build_dir)
     sh.go('run', source, *extra_args, **std_out)
 
 
@@ -125,7 +111,7 @@ def run(source, extra_args):
 @click.option('--source', default=sourceFile, help='The source file to run.')
 @click.argument('extra_args', nargs=-1)
 def test(source, extra_args):
-    set_library_path(qmlruntime_build_dir)
+    set_library_path(runtime_build_dir)
     test_dirs = ["tests/..."]
     named_args = {"count": 1}
     sh.go('test', *test_dirs, "v", *extra_args, **named_args, **std_out)
@@ -137,7 +123,7 @@ def build_type_label(ctx):
 
 def conan_dir(ctx, generators=False):
     extra = f'{build_type_label(ctx)}/generators' if generators else ''
-    return f"{qmlruntime_build_dir}/conan/{extra}"
+    return f"{runtime_build_dir}/conan/{extra}"
 
 
 @cli.command("setup-runtime")
@@ -147,7 +133,7 @@ def setup_runtime(ctx, clean):
     echo('Installing conan dependencies')
 
     if clean:
-        sh.rm('-rf', qmlruntime_build_dir, **std_out)
+        sh.rm('-rf', runtime_build_dir, **std_out)
         from dev.setup_helpers import venv_dir
         sh.rm('-rf', venv_dir, **std_out)
 
@@ -155,7 +141,7 @@ def setup_runtime(ctx, clean):
 
     fix_dependencies()
 
-    sh.conan('install', qmlruntime_dir, '-s', build_type, '--build=missing',
+    sh.conan('install', runtime_dir, '-s', build_type, '--build=missing',
              f'-of={conan_dir(ctx)}', **std_out)
 
     echo('Installing go dependencies')
@@ -171,13 +157,13 @@ def build_runtime(ctx):
     build_type = 'Debug' if ctx.obj['DEBUG'] else 'Release'
 
     sh.cmake(
-        '-G', 'Ninja', '-B', qmlruntime_build_dir,
-        '-S', qmlruntime_dir, f'-DCMAKE_BUILD_TYPE={build_type}', '--preset', 'conan-release', **std_out
+        '-G', 'Ninja', '-B', runtime_build_dir,
+        '-S', runtime_dir, f'-DCMAKE_BUILD_TYPE={build_type}', '--preset', 'conan-release', **std_out
     )
-    sh.cmake('--build', qmlruntime_build_dir, **std_out)
+    sh.cmake('--build', runtime_build_dir, **std_out)
 
-    test_qmlruntime_path = f'{qmlruntime_build_dir}/tests/test_qmlruntime'
-    sh.Command(test_qmlruntime_path).bake(
+    test_runtime_path = f'{runtime_build_dir}/qmlruntime/tests/test_qmlruntime'
+    sh.Command(test_runtime_path).bake(
         **{"--gtest_filter": '"RuntimeTest.*"'}, **std_out)()
 
 

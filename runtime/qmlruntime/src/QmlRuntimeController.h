@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Runtime.h"
+#include "QmlRuntime.h"
 
 #include <QObject>
 #include <QQmlParserStatus>
@@ -9,14 +9,14 @@
 
 #include <memory>
 
-class RuntimeController : public QObject, public QQmlParserStatus
+class QmlRuntimeController : public QObject, public QQmlParserStatus
 {
     Q_OBJECT
     QML_ELEMENT
     Q_INTERFACES(QQmlParserStatus)
 
 public:
-    RuntimeController(QObject *parent = nullptr);
+    QmlRuntimeController(QObject *parent = nullptr);
 
     // QML interface
     Q_INVOKABLE void publishJsonMessage(const QString &json);
@@ -30,5 +30,5 @@ public:
     //    void jsonMessageReceived(const QString &text);
 
 private:
-    std::shared_ptr<Runtime> controller;
+    std::shared_ptr<QmlRuntime> controller;
 };
