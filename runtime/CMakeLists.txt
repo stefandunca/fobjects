@@ -28,6 +28,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 target_include_directories(runtime
     PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/qmlruntime/include>
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/qt/include>
 
     PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/qmlruntime/include/qmlruntime
@@ -52,19 +53,20 @@ target_link_libraries(runtime
 target_sources(runtime
     PUBLIC
         qmlruntime/include/qmlruntime/QmlRuntime.h
+        qt/include/BridgeSingleton.h
 
     PRIVATE
         qmlruntime/src/QmlRuntime.cpp
         qmlruntime/src/QmlRuntimeController.h
         qmlruntime/src/QmlRuntimeController.cpp
 
+        qt/src/BridgeSingleton.cpp
+
         cpp/ObjectAbstract.h
         cpp/FactoryAbstract.h
 
         qt/src/Object.h
         qt/src/Object.cpp
-        qt/src/BridgeSingleton.h
-        qt/src/BridgeSingleton.cpp
 )
 
 add_subdirectory(qmlruntime/tests)

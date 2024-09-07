@@ -1,4 +1,4 @@
-# fobjects
+# Foreign Objects
 
 ## Swig
 
@@ -7,7 +7,12 @@
 
 ## Debugging
 
-Inspect wig generated code.
+```sh
+source .dev/venv/bin/activate
+./dev.py run
+```
+
+Inspect swig generated code.
 
 ```sh
 ( TMPDIR=$(pwd)/build/go CGO_CXXFLAGS="-std=c++11" go run --work main.go )
@@ -15,8 +20,14 @@ Inspect wig generated code.
 
 ## Implementation
 
+- [ ] Add QML integration test file
+
 ### App initialize the C++ runtime - go code
 
 ### C++ runtime initialize the qml runtime
 
 ### C++ runtime registers the Qt foreign objects
+
+## TODO
+
+- [ ] Try nix for dependencies

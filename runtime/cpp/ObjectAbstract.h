@@ -2,13 +2,14 @@
 
 #include "helpers.h"
 
+// TODO DEV remove me
 #include <iostream>
 #include <string>
 
 class ObjectAbstract {
 public:
     virtual ~ObjectAbstract() {
-        std::cout << "@dd cpp.ObjectAbstract::~ObjectAbstract()" << std::endl;
+        std::cout << "@dd C+ ObjectAbstract::~ObjectAbstract()" << std::endl;
     };
     virtual void setStringProperty(const char*) = 0;
     virtual std::string getStringProperty() = 0;

@@ -1,8 +1,10 @@
 #pragma once
 
+#include "qmlruntime/include/qmlruntime/QmlRuntime.h"
+
 #include "cpp/FactoryAbstract.h"
 
-// TODO DEV
+// TODO DEV remove me
 #include <iostream>
 
 class Runtime {
@@ -11,5 +13,8 @@ public:
 
     virtual ~Runtime();
 
-    int run(const FactoryAbstract* factory);
+    int run(const FactoryAbstract* factory, const char* mainQml);
+
+private:
+    QmlRuntimePtr _qmlRuntime;
 };

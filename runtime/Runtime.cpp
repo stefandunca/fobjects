@@ -1,48 +1,34 @@
 #include "Runtime.h"
 
-#include "cpp/ObjectAbstract.h"
+#include "qt/include/BridgeSingleton.h"
 
 #include <functional>
 
-// TODO DEV
+// TODO DEV remove me
 #include <iostream>
 
 Runtime::Runtime(const char* jsonArgs)
 {
-    std::cout << "@dd cpp.Runtime::Runtime()" << jsonArgs << std::endl;
+    std::cout << "@dd C+ Runtime::Runtime()" << jsonArgs << std::endl;
+    _qmlRuntime = QmlRuntime::initWithJson(jsonArgs, [](const char* data) {
+        std::cout << "@dd C+ Runtime::Runtime() data: " << data << std::endl;
+    });
 }
 
 Runtime::~Runtime()
 {
-    std::cout << "@dd cpp.Runtime::~Runtime()" << std::endl;
+    std::cout << "@dd C+ Runtime::~Runtime()" << std::endl;
 }
 
-// Identify with an ID the template instance
-template <class T>
-class PropertyChangedForObject : public PropertyChangedCallback {
-public:
-    PropertyChangedForObject(T* object, std::function<void(T*)> notifyFn)
-        : object(object)
-        , notifyFn(notifyFn)
-    {};
-    virtual void changed() {
-        std::cout << "@dd cpp.PropertyChangedForObject::changed()" << std::endl;
-        notifyFn(object);
-    }
-    private:
-        T* object;
-        std::function<void(T*)> notifyFn;
-};
-
-int Runtime::run(const FactoryAbstract* factory)
+int Runtime::run(const FactoryAbstract* factory, const char* mainQml)
 {
-    std::cout << "@dd cpp.Runtime::run()" << std::endl;
-    auto obj = factory->createObject();
-    PropertyChangedForObject<ObjectAbstract> pcc(obj, [](ObjectAbstract* o) {
-        std::cout << "@dd Property changed for object: " << o->getStringProperty() << std::endl;
-    });
-    obj->registerForStringPropertyChanges(&pcc);
-    obj->setStringProperty("Test Content");
-    delete obj;
-    return 0;
+    std::cout << "@dd C+ Runtime::run()" << std::endl;
+
+    auto ok = BridgeSingleton::setFactory(factory);
+    if (!ok) {
+        std::cout << "@dd C+ Runtime::run() failed to set factory" << std::endl;
+        return -1;
+    }
+
+    return _qmlRuntime->run(mainQml);
 }

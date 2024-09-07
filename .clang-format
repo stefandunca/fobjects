@@ -38,7 +38,7 @@ AccessModifierOffset: -4
 KeepEmptyLinesAtTheStartOfBlocks: false
 
 # Ensure return types are placed on a separate line
-AlwaysBreakAfterReturnType: TopLevel  # Forces breaking return type for top-level functions
+AlwaysBreakAfterReturnType: TopLevel # Forces breaking return type for top-level functions
 
 # Pointer and reference alignment to stick to the type
 PointerAlignment: Left

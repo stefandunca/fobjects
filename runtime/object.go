@@ -26,7 +26,7 @@ type overwrittenMethodsOnObjectAbstract struct {
 }
 
 func (om *overwrittenMethodsOnObjectAbstract) SetStringProperty(value string) {
-	fmt.Println("@dd GO SetStringProperty", value, om.callback)
+	fmt.Println("@dd GO ObjectAbstract SetStringProperty", value, om.callback)
 	om.stringProperty = value
 	if om.callback != nil {
 		om.callback.Changed()
@@ -34,12 +34,12 @@ func (om *overwrittenMethodsOnObjectAbstract) SetStringProperty(value string) {
 }
 
 func (om *overwrittenMethodsOnObjectAbstract) GetStringProperty() string {
-	fmt.Println("@dd GO GetStringProperty", om.stringProperty)
+	fmt.Println("@dd GO ObjectAbstract GetStringProperty", om.stringProperty)
 	return om.stringProperty
 }
 
 func (om *overwrittenMethodsOnObjectAbstract) RegisterForStringPropertyChanges(callback PropertyChangedCallback) {
-	fmt.Println("@dd GO RegisterForStringPropertyChange", callback)
+	fmt.Println("@dd GO ObjectAbstract RegisterForStringPropertyChange", callback)
 	om.callback = callback
 }
 

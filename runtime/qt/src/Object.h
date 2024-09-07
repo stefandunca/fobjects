@@ -1,11 +1,11 @@
 #pragma once
 
-#include "ObjectAbstract.h"
-
 #include <QObject>
 #include <QtQml/qqmlregistration.h>
 
 // TODO: namespace
+
+class ObjectAbstract;
 
 class Object: public QObject {
     Q_OBJECT

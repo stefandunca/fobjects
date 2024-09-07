@@ -46,7 +46,7 @@ QmlRuntimePtr QmlRuntime::initWithJson(const char* argsJsonArray, DataReceivedCa
 
 QmlRuntimeWeak QmlRuntime::instance() { return globalRuntime; }
 
-QmlRuntime::~QmlRuntime() { std::cout << "@dd cpp.QmlRuntime::~QmlRuntime" << std::endl; }
+QmlRuntime::~QmlRuntime() { std::cout << "@dd C+ QmlRuntime::~QmlRuntime" << std::endl; }
 
 int QmlRuntime::run(fs::path mainViewQmlComponent)
 {

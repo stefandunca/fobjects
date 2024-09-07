@@ -2,13 +2,13 @@
 
 #include "ObjectAbstract.h"
 
-// TODO DEV
+// TODO DEV remove me
 #include <iostream>
 
 class FactoryAbstract {
 public:
     virtual ~FactoryAbstract() {
-        std::cout << "@dd cpp.FactoryAbstract::~FactoryAbstract()" << std::endl;
+        std::cout << "@dd C+ FactoryAbstract::~FactoryAbstract()" << std::endl;
     };
     virtual ObjectAbstract* createObject() const = 0;
 };

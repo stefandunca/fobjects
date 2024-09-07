@@ -4,6 +4,24 @@
 
 #include "BridgeSingleton.h"
 
+// TODO DEV remove me
+template <class T>
+class PropertyChangedForObject : public PropertyChangedCallback {
+public:
+    PropertyChangedForObject(T* object, std::function<void(T*)> notifyFn)
+        : object(object)
+        , notifyFn(notifyFn)
+    {};
+    virtual void changed() {
+        std::cout << "@dd C+ PropertyChangedForObject::changed()" << std::endl;
+        notifyFn(object);
+    }
+    private:
+        T* object;
+        std::function<void(T*)> notifyFn;
+};
+
+
 Object::Object(QObject *parent)
     : QObject(parent)
 {
@@ -12,9 +30,17 @@ Object::Object(QObject *parent)
     assert(factory);
 
     _objectAbstract = factory->createObject();
+
+    PropertyChangedForObject<ObjectAbstract> pcc(_objectAbstract, [](ObjectAbstract* o) {
+        std::cout << "@dd C+ Property changed for object: " << o->getStringProperty() << std::endl;
+    });
+    _objectAbstract->registerForStringPropertyChanges(&pcc);
+    _objectAbstract->setStringProperty("Test Content");
 }
 
-Object::~Object() {}
+Object::~Object() {
+    delete _objectAbstract;
+}
 
 QString Object::stringProperty() const {
     return QString::fromStdString(_objectAbstract->getStringProperty());

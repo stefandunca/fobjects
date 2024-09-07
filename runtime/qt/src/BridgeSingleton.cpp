@@ -4,11 +4,11 @@
 
 #include <cassert>
 
-FactoryAbstract *BridgeSingleton::_factory = nullptr;
+const FactoryAbstract *BridgeSingleton::_factory = nullptr;
 
 // Force check of return value
 bool
-BridgeSingleton::setFactory(FactoryAbstract *factory) {
+BridgeSingleton::setFactory(const FactoryAbstract *factory) {
     if (_factory) {
         return false;
     }
@@ -16,7 +16,7 @@ BridgeSingleton::setFactory(FactoryAbstract *factory) {
     return true;
 }
 
-FactoryAbstract *
+const FactoryAbstract *
 BridgeSingleton::factory() {
     assert(_factory);
     return _factory;

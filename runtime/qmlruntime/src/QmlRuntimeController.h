@@ -25,7 +25,7 @@ public:
     void classBegin() override{};
     void componentComplete() override;
 
-    // TODO
+    // TODO fixme
     // signals:
     //    void jsonMessageReceived(const QString &text);
 

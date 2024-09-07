@@ -23,7 +23,7 @@ type overwrittenMethodsOnFactoryAbstract struct {
 }
 
 func (om *overwrittenMethodsOnFactoryAbstract) CreateObject() ObjectAbstract {
-	fmt.Println("@dd GO CreateObject")
+	fmt.Println("@dd GO FactoryAbstract CreateObject")
 	return NewObjectGo()
 }
 
