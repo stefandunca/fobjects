@@ -21,6 +21,9 @@ public:
         std::function<void(T*)> notifyFn;
 };
 
+// TODO DEV remove me
+static PropertyChangedForObject<ObjectAbstract>* gPcc;
+
 
 Object::Object(QObject *parent)
     : QObject(parent)
@@ -30,11 +33,13 @@ Object::Object(QObject *parent)
     assert(factory);
 
     _objectAbstract = factory->createObject();
+    if (!gPcc) {
+        gPcc = new PropertyChangedForObject<ObjectAbstract>(_objectAbstract, [](ObjectAbstract* o) {
+            std::cout << "@dd C+ Property changed for object: " << o->getStringProperty() << std::endl;
+        });
+    }
 
-    PropertyChangedForObject<ObjectAbstract> pcc(_objectAbstract, [](ObjectAbstract* o) {
-        std::cout << "@dd C+ Property changed for object: " << o->getStringProperty() << std::endl;
-    });
-    _objectAbstract->registerForStringPropertyChanges(&pcc);
+    _objectAbstract->registerForStringPropertyChanges(gPcc);
     _objectAbstract->setStringProperty("Test Content");
 }
 
