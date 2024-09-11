@@ -1,7 +1,8 @@
 #include "Object.h"
 
-#include "FactoryAbstract.h"
+#include "ObjectAbstract.h"
 
+#include "FactoryAbstract.h"
 #include "BridgeSingleton.h"
 
 // TODO DEV remove me

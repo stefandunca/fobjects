@@ -27,6 +27,11 @@ func (om *overwrittenMethodsOnFactoryAbstract) CreateObject() ObjectAbstract {
 	return NewObjectGo()
 }
 
+func (om *overwrittenMethodsOnFactoryAbstract) CreateProject() ProjectAbstract {
+	fmt.Println("@dd GO FactoryAbstract CreateProject")
+	return NewProjectGo()
+}
+
 func NewFactoryGo() Factory {
 	om := &overwrittenMethodsOnFactoryAbstract{}
 	fa := NewDirectorFactoryAbstract(om)

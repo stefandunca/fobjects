@@ -32,3 +32,9 @@ int Runtime::run(const FactoryAbstract* factory, const char* mainQml)
 
     return _qmlRuntime->run(mainQml);
 }
+
+bool Runtime::listProperties(void* bridgeObject) const {
+    std::cout << "@dd C+ Runtime::listProperties(" << bridgeObject << ")" << std::endl;
+    return false;
+}
+

@@ -2,5 +2,8 @@
 import runtime
 
 //QtObject {
-Object {
+
+Project {
+    Object {
+    }
 }

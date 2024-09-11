@@ -3,10 +3,12 @@
 #include "Runtime.h"
 #include "cpp/helpers.h"
 #include "cpp/ObjectAbstract.h"
+#include "cpp/ProjectAbstract.h"
 #include "cpp/FactoryAbstract.h"
 %}
 
 %feature("director") ObjectAbstract;
+%feature("director") ProjectAbstract;
 %feature("director") FactoryAbstract;
 
 %include "std_string.i"
@@ -14,4 +16,5 @@
 %include "Runtime.h"
 %include "cpp/helpers.h"
 %include "cpp/ObjectAbstract.h"
+%include "cpp/ProjectAbstract.h"
 %include "cpp/FactoryAbstract.h"

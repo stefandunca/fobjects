@@ -63,10 +63,13 @@ target_sources(runtime
         qt/src/BridgeSingleton.cpp
 
         cpp/ObjectAbstract.h
+        cpp/ProjectAbstract.h
         cpp/FactoryAbstract.h
 
         qt/src/Object.h
         qt/src/Object.cpp
+        qt/src/Project.h
+        qt/src/Project.cpp
 )
 
 add_subdirectory(qmlruntime/tests)

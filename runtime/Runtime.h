@@ -14,6 +14,8 @@ public:
     virtual ~Runtime();
 
     int run(const FactoryAbstract* factory, const char* mainQml);
+    
+    bool listProperties(void* bridgeObject) const;
 
 private:
     QmlRuntimePtr _qmlRuntime;
